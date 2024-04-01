@@ -3,7 +3,6 @@ import pandas as pd
 from sklearn import datasets
 from xgboost import XGBRegressor
 from rdkit import Chem
-from rdkit.Chem import Draw
 import pickle
 from streamlit_ketcher import st_ketcher
 
