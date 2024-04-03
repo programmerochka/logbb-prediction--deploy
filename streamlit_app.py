@@ -27,19 +27,19 @@ def main():
     molecule = st.text_input("Ввести молекулу в формате SMILES:")
     smile_code = st_ketcher(molecule)
     st.markdown(f"Smile code: ``{smile_code}``")
-    data = {'molec': molecule}
+    data = {'molec': smile_code}
     features = pd.DataFrame(data, index=[0])
 
     df = pd.read_csv('698_descr.csv')
 
-    ind = df[df['SMILES_uncharge'] == molecule].index
+    ind = df[df['SMILES_uncharge'] == msmile_code].index
     arr = df.iloc[ind, 3:].to_numpy()
 
     result = ""
 
     if st.button("Predict"):
         result = prediction(arr)
-    st.success('The output is {}'.format(result))
+    st.success(f'The logBB is {result[0]}')
 
 
 if __name__ == '__main__':
