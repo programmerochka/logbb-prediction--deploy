@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn import datasets
 from xgboost import XGBRegressor
 from rdkit import Chem
+from rdkit.Chem import Draw
 import pickle
 from streamlit_ketcher import st_ketcher
 
@@ -24,7 +25,7 @@ def main():
     Это приложение проводит оценку **способности молекул проникать через гематоэнцефалический барьер**!
     """)
 
-    molecule = st.text_input("Ввести молекулу в формате SMILES:")
+    molecule = st.text_input("Ввести молекулу в формате SMILES:", 'NC(CC1=CC=CC=C1)C(=O)ON1CCCC1C(=O)O')
     smile_code = st_ketcher(molecule)
     st.markdown(f"Smile code: ``{smile_code}``")
     data = {'molec': smile_code}
@@ -32,7 +33,7 @@ def main():
 
     df = pd.read_csv('698_descr.csv')
 
-    ind = df[df['SMILES_uncharge'] == msmile_code].index
+    ind = df[df['SMILES_uncharge'] == smile_code].index
     arr = df.iloc[ind, 3:].to_numpy()
 
     result = ""
@@ -40,6 +41,7 @@ def main():
     if st.button("Predict"):
         result = prediction(arr)
     st.success(f'The logBB is {result}')
+
 
 
 if __name__ == '__main__':
