@@ -39,7 +39,7 @@ def main():
 
     if st.button("Predict"):
         result = prediction(arr)
-    st.success(f'The logBB is {result[0]}')
+    st.success(f'The logBB is {result}')
 
 
 if __name__ == '__main__':
